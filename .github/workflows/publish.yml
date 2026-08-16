@@ -1,0 +1,129 @@
+name: Pack and publish nuget
+
+on:
+  workflow_dispatch:
+    inputs:
+      is-pre-release:
+        type: boolean
+        description: Is pre-release
+        required: true
+        default: false
+
+      publish-to-github:
+        type: boolean
+        description: Publish to GitHub
+        required: true
+        default: true
+
+      create-release:
+        type: boolean
+        description: Create a GitHub release
+        required: true
+        default: true
+
+      publish-to-nuget:
+        type: boolean
+        description: Publish to nuget.org
+        required: true
+        default: true
+
+jobs:
+  pack:
+    name: Pack
+    runs-on: ubuntu-latest
+
+    outputs:
+      artifact-name: ${{ steps.version.outputs.ARTIFACT_NAME }}
+      package-name: ${{ steps.version.outputs.PACKAGE_NAME }}
+      package-version: ${{ steps.version.outputs.PACKAGE_VERSION }}
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+
+      - name: Extract version
+        id: version
+        run: |
+          PACKAGE_VERSION=${{ github.ref_name }}
+          PACKAGE_NAME="Toxic.Aspire.NamingConventions.Azure.$PACKAGE_VERSION.nupkg"
+          ARTIFACT_NAME="package-$PACKAGE_VERSION"
+
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Pack
+        run: dotnet pack src/Toxic.Aspire.NamingConventions.Azure --configuration Release -p:PackageVersion="${{ steps.version.outputs.PACKAGE_VERSION }}"
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ success() }}
+        with:
+          name: ${{ steps.version.outputs.ARTIFACT_NAME }}
+          path: "src/Toxic.Aspire.NamingConventions.Azure/bin/Release/${{ steps.version.outputs.PACKAGE_NAME }}"
+
+  publish-to-github:
+    name: Publish to GitHub
+    needs: pack
+    runs-on: ubuntu-latest
+    if: ${{ inputs.publish-to-github }}
+
+    permissions:
+      contents: write
+      packages: write
+
+    env:
+      PACKAGE_NAME: ${{ needs.pack.outputs.package-name }}
+      PACKAGE_VERSION: ${{ needs.pack.outputs.package-version }}
+      IS_PRE_RELEASE: ${{ inputs.is-pre-release }}
+
+    steps:
+      - uses: actions/download-artifact@v8
+
+      - name: Publish
+        run: |
+          dotnet nuget add source --username toxicinteractive --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name toxic-github "https://nuget.pkg.github.com/toxicinteractive/index.json"
+          dotnet nuget push "$GITHUB_WORKSPACE/$PACKAGE_NAME" --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source toxic-github
+
+      - name: Create release
+        uses: actions/github-script@v8
+        if: ${{ inputs.create-release && success() }}
+        with:
+          script: |
+            try {
+              await github.rest.repos.createRelease({
+                draft: false,
+                generate_release_notes: true,
+                name: process.env.PACKAGE_VERSION,
+                owner: context.repo.owner,
+                prerelease: process.env.IS_PRE_RELEASE === "true",
+                repo: context.repo.repo,
+                tag_name: process.env.PACKAGE_VERSION,
+              });
+            } catch (error) {
+              core.setFailed(error.message);
+            }
+
+  publish-to-nugetorg:
+    name: Publish to nuget.org
+    needs: pack
+    runs-on: ubuntu-latest
+    if: ${{ inputs.publish-to-nuget }}
+
+    permissions:
+      id-token: write
+
+    env:
+      PACKAGE_NAME: ${{ needs.pack.outputs.package-name }}
+
+    steps:
+      - uses: actions/download-artifact@v8
+
+      - name: Get API key
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Publish
+        run: dotnet nuget push "$GITHUB_WORKSPACE/$PACKAGE_NAME" --skip-duplicate --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source "https://api.nuget.org/v3/index.json"
+      

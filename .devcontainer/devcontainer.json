@@ -1,0 +1,40 @@
+{
+  "name": "toxic-aspire-namingconventions-azure",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:10.0",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:latest": {},
+    "ghcr.io/devcontainers/features/azure-cli:latest": {},
+    "ghcr.io/dnegstad/devcontainer-dev-certs/devcontainer-dev-certs:latest": {
+      "generateDotNetCert": false
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "dnegstad.devcontainer-dev-certs-remote",
+        "ms-dotnettools.csdevkit",
+        "microsoft-aspire.aspire-vscode",
+        "EditorConfig.EditorConfig"
+      ],
+
+      "settings": {
+        "remote.autoForwardPorts": true,
+        "remote.autoForwardPortsSource": "hybrid",
+        "csharpOrganizeUsings.splitGroups": false
+      }
+    }
+  },
+  "remoteEnv": {
+    "WORKSPACE_DIR": "${containerWorkspaceFolder}",
+    "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true",
+    "DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER": "true",
+    "AZURE_CONFIG_DIR": "${containerWorkspaceFolder}/.az"
+  },
+  "initializeCommand": "touch .devcontainer/.env",
+  "runArgs": [
+    "--env-file",
+    ".devcontainer/.env"
+  ],
+  "postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/post-create.sh"
+}

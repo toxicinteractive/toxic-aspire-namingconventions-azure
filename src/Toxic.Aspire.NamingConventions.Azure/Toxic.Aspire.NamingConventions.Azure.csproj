@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <NoWarn>$(NoWarn);1573;1591</NoWarn>
+
+    <IsPackable>true</IsPackable>
+    <PackageId>Toxic.Aspire.NamingConventions.Azure</PackageId>
+    <Version>13.4.6-v1</Version>
+    <Company>Toxic Interactive Solutions</Company>
+    <PackageTags>Aspire;Azure</PackageTags>
+    <Description>Contains a framework for automatically generating Aspire Azure resource names according to conventions.</Description>
+    <RepositoryUrl>https://github.com/toxicinteractive/toxic-aspire-namingconventions-azure</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.4.6" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="13.4.6" />
+    <PackageReference Include="Aspire.Hosting.Azure.Sql" Version="13.4.6" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/Toxic.Aspire.NamingConventions.Azure/Toxic.Aspire.NamingConventions.Azure.csproj" />
+  <Project Path="src/Toxic.Aspire.NamingConventions.Azure.AppHost/Toxic.Aspire.NamingConventions.Azure.AppHost.csproj" />
+  <Project Path="src/Toxic.Aspire.NamingConventions.Azure.SampleApp/Toxic.Aspire.NamingConventions.Azure.SampleApp.csproj" />
+</Solution>
