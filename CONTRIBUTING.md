@@ -1,4 +1,10 @@
 # Toxic.Aspire.NamingConventions.Azure
+## How to develop
+1. Spin up the devcontainer
+2. Log in to an Azure dev subscription with `az login`
+3. Test name generation by running `aspire publish`
+4. Test remote name deployment with `aspire deploy`
+
 ## How to push a new version
 1. Update the version number in Toxic.Aspire.NamingConventions.Azure.csproj
 2. Create a git tag with the version number

@@ -31,10 +31,5 @@
     "DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER": "true",
     "AZURE_CONFIG_DIR": "${containerWorkspaceFolder}/.az"
   },
-  "initializeCommand": "touch .devcontainer/.env",
-  "runArgs": [
-    "--env-file",
-    ".devcontainer/.env"
-  ],
   "postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/post-create.sh"
 }
