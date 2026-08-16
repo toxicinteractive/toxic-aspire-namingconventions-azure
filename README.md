@@ -108,7 +108,7 @@ builder
 
 This is also true for automatically generated resources. Aspire will generate required resources automatically if there's a need to, for example a container registry and a managed identity when you create a container app environment. To avoid name collisions for automatically generated resources you could:
 
-* Manually declare the resources in your AppHost and hand them to Aspire when declaring the master resource, now you can identify your resources
+* Manually declare the resources in your AppHost and hand them to Aspire when declaring the master resource, now you can identify your resources with `WithAzureWorkloadName`
 * Exclude the resource types completely from the name resolution with a custom name resolver that does nothing
 * Handle the resolution in some other way in a custom name resolver
 
