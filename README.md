@@ -1,5 +1,5 @@
 # Toxic.Aspire.NamingConventions.Azure
-Contains a framework for automatically generating predictable Azure resource names with Aspire according to conventions instead of random identifiers.
+A framework for automatically generating predictable Azure resource names with Aspire according to CAF-like conventions instead of random identifiers.
 
 ## Why
 When you define a resource in your Aspire app host you give it a name, but when deploying that resource name will be added a random identifier.
