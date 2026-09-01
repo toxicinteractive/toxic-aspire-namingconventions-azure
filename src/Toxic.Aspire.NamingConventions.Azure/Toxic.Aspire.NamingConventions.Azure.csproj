@@ -9,7 +9,7 @@
 
     <IsPackable>true</IsPackable>
     <PackageId>Toxic.Aspire.NamingConventions.Azure</PackageId>
-    <Version>13.5.0</Version>
+    <Version>13.5.3.0</Version>
     <Company>Toxic Interactive Solutions</Company>
     <PackageTags>Aspire;Azure</PackageTags>
     <Description>Contains a framework for automatically generating Aspire Azure resource names according to conventions.</Description>

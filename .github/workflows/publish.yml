@@ -52,8 +52,10 @@ jobs:
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_OUTPUT
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
-      - name: Pack
-        run: dotnet pack src/Toxic.Aspire.NamingConventions.Azure --configuration Release -p:PackageVersion="${{ steps.version.outputs.PACKAGE_VERSION }}"
+      - name: Restore and pack
+        run: |
+          dotnet restore
+          dotnet pack src/Toxic.Aspire.NamingConventions.Azure --no-restore --configuration Release -p:PackageVersion="${{ steps.version.outputs.PACKAGE_VERSION }}"
 
       - uses: actions/upload-artifact@v7
         if: ${{ success() }}
