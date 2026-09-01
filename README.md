@@ -6,7 +6,7 @@ When you define a resource in your Aspire app host you give it a name, but when 
 E.g. a resource `sql-server` will get the name `sql-serverlaw-nj6mfe7xbw`. This package will generate predictable [CAF-like](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming) resource names when deploying with Aspire in a customizable way so that `sql-server` becomes `sql-mysite-shop-dev-swc` (customizable). This helps keep a uniform, organized naming scheme across your organisation or project resources.
 
 ## How to use
-1. Install the [Toxic.Aspire.NamingConventions.Azure nuget package](https://www.nuget.org/packages/Toxic.Aspire.NamingConventions.Azure) to your app host project. The package version aligns with the corresponding Aspire version.
+1. Install the [Toxic.Aspire.NamingConventions.Azure nuget package](https://www.nuget.org/packages/Toxic.Aspire.NamingConventions.Azure) to your app host project. The package major.minor version aligns with the corresponding Aspire major.minor version.
 2. Make sure your appsettings includes the required Aspire settings:
     ```json
     "Azure": {
