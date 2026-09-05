@@ -9,7 +9,7 @@ indent_style = space
 [*.{cs}]
 indent_size = 4
 
-[*.{js,jsx,ts,tsx,html,css,json,cshtml,xml,csproj,sln,md}]
+[*.{js,jsx,ts,tsx,html,css,json,cshtml,xml,csproj,sln,slnx,md}]
 indent_size = 2
 
 [*.cs]
