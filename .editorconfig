@@ -100,7 +100,7 @@ dotnet_naming_rule.parameters_with_camelcase.symbols = parameter
 dotnet_naming_rule.parameters_with_camelcase.style = camelcase
 dotnet_naming_rule.parameters_with_camelcase.severity = error
 
-dotnet_naming_symbols.other.applicable_kinds = class,interface,method,property,namespace,type_parameter
+dotnet_naming_symbols.other.applicable_kinds = class,interface,method,property,namespace,type_parameter,enum
 dotnet_naming_symbols.other.applicable_accessibilities = *
 dotnet_naming_rule.other_with_pascalcase.symbols = other
 dotnet_naming_rule.other_with_pascalcase.style = pascalcase
