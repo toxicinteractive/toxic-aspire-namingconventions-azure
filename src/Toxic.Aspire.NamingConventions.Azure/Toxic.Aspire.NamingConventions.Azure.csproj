@@ -26,8 +26,8 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.5.3" />
-    <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="13.5.3" />
-    <PackageReference Include="Aspire.Hosting.Azure.Sql" Version="13.5.3" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.5.4" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="13.5.4" />
+    <PackageReference Include="Aspire.Hosting.Azure.Sql" Version="13.5.4" />
   </ItemGroup>
 </Project>
