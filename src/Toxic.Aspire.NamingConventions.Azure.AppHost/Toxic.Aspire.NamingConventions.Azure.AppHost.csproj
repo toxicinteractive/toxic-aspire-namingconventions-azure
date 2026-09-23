@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.5.3">
+<Project Sdk="Aspire.AppHost.Sdk/13.5.4">
   <ItemGroup>
     <ProjectReference Include="..\Toxic.Aspire.NamingConventions.Azure\Toxic.Aspire.NamingConventions.Azure.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\Toxic.Aspire.NamingConventions.Azure.SampleApp\Toxic.Aspire.NamingConventions.Azure.SampleApp.csproj" />
