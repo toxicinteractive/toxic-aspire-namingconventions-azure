@@ -21,7 +21,7 @@ public static class ResourceBuilderExtensions
                 .ApplicationBuilder
                 .Services
                 .AddKeyedSingleton<ResourceWorkloadNameAssociation>(
-                    builder.Resource.Name, new ResourceWorkloadNameAssociation
+                    builder.Resource.Name.Replace("-", "_"), new ResourceWorkloadNameAssociation
                     {
                         ResourceType = typeof(TResource),
                         ResourceName = builder.Resource.Name,
