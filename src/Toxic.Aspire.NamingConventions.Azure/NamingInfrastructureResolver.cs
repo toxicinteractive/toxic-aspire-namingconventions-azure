@@ -109,7 +109,7 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
             });
 
             // set resource name with the resolver we found for this resource type
-            if (!string.IsNullOrWhiteSpace(name)) 
+            if (!string.IsNullOrWhiteSpace(name))
             {
                 SetResourceName(resource, name);
             }
@@ -147,13 +147,10 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
 
     private ResourceWorkloadNameAssociation? GetResourceWorkloadNameAssociation(ProvisionableResource resource)
     {
-        var resourceName = GetResourceNameProperty(resource)?
-            .GetValue(resource) as BicepValue<string>;
-
-        if (!string.IsNullOrWhiteSpace(resourceName?.Value))
+        if (!string.IsNullOrWhiteSpace(resource.BicepIdentifier))
         {
             // find a registered "Azure workload name association" for this resource
-            return ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName.Value);
+            return ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resource.BicepIdentifier);
         }
 
         return null;
