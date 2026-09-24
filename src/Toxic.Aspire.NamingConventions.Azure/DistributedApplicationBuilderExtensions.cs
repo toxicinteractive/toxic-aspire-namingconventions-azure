@@ -22,7 +22,7 @@ public static class DistributedApplicationBuilderExtensions
         /// Use the <see cref="IResourceNameResolver{T}"/> to override the naming resolution for specific resource types.
         /// </summary>
         /// <param name="projectName">Short project name identifier, e.g. "blog".</param>
-        /// <param name="pattern">Modify the pattern for generated names. Defaults to {Prefix}{Project}{Workload}{Env}{Region}.</param>
+        /// <param name="pattern">Modify the pattern for generated names. Defaults to {Prefix}{Project}{Workload}{Env}.</param>
         public IDistributedApplicationBuilder WithAzureNamingConvention(string projectName, string? pattern = null)
         {
             // default helper resolvers

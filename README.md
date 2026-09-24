@@ -27,8 +27,9 @@ See below for more customization and visit the [GitHub page](https://github.com/
 
 ## Features
 ### Default naming convention
-By default the `DefaultResourceNameResolver` will generate a name for a resource according to the following pattern: `{Prefix}{Project}{Workload}{Env}{Region}`.
+By default the `DefaultResourceNameResolver` will generate a name for a resource according to the following pattern: `{Prefix}{Project}{Workload}{Env}`.
 
+Available segments:
 * Prefix: Generated from a table of resource prefixes from https://www.azureperiodictable.com
 * Project: The project name given to `WithAzureNamingConvention`
 * Workload: A unique workload name given to a specific resource with `WithAzureWorkloadName` (optional, and won't be used for automatically generated resources)
@@ -38,9 +39,9 @@ By default the `DefaultResourceNameResolver` will generate a name for a resource
 ### Custom pattern
 To influence the name resolver outcome for all resources you can specify a custom pattern when calling `WithAzureNamingConvention`: 
 ```csharp
-builder.WithAzureNamingConvention("projectname", "{Prefix}{Workload}{Env}")
+builder.WithAzureNamingConvention("projectname", "{Prefix}{Workload}{Env}{Region}")
 ```
- The default pattern is `{Prefix}{Project}{Workload}{Env}{Region}`.
+ The default pattern is `{Prefix}{Project}{Workload}{Env}`.
 
 ### Custom resource name resolver
 To have direct control over how the name is generated for a particular resource type you can add a custom name resolver override: 

@@ -10,6 +10,7 @@ namespace Toxic.Aspire.NamingConventions.Azure.NameResolvers;
 public class DefaultResourceNameResolver<T> : IResourceNameResolver<T> where T : ProvisionableResource
 {
     public Type ResourceType => typeof(T);
+    protected virtual string DefaultPattern { get; } = "{Prefix}{Project}{Workload}{Env}";
     private readonly IRegionNameResolver _regionNameResolver;
     private readonly IResourcePrefixResolver _resourcePrefixResolver;
     private readonly IEnvironmentNameResolver _environmentNameResolver;
@@ -40,7 +41,7 @@ public class DefaultResourceNameResolver<T> : IResourceNameResolver<T> where T :
             return null;
         }
 
-        var pattern = context.Pattern ?? "{Prefix}{Project}{Workload}{Env}{Region}";
+        var pattern = context.Pattern ?? DefaultPattern;
 
         pattern = ReplaceSegment(pattern, "{Prefix}", prefix, context.Separator);
         pattern = ReplaceSegment(pattern, "{Project}", context.ProjectName, context.Separator);

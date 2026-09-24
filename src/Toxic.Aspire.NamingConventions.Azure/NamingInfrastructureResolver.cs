@@ -49,7 +49,7 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
     /// <param name="projectName">Short project name identifier, e.g. "blog".</param>
     /// <param name="environmentName">The currently resolved dotnet environment name. See <see cref="Microsoft.Extensions.Hosting.HostApplicationBuilder.Environment"/> </param>
     /// <param name="defaultRegion">Default Azure region. Used for region abbreviation. See <see cref="RegionNames"/>.</param>
-    /// <param name="pattern">Modify the pattern for generated names. Defaults to {Prefix}{Project}{Workload}{Env}{Region}.</param>
+    /// <param name="pattern">Modify the pattern for generated names. Defaults to {Prefix}{Project}{Workload}{Env}.</param>
     public NamingInfrastructureResolver(
         string projectName,
         string environmentName,

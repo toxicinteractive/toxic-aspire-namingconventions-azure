@@ -1,7 +1,7 @@
 # Toxic.Aspire.NamingConventions.Azure
 ## How to develop
 1. Spin up the devcontainer
-2. Log in to an Azure dev subscription with `az login`
+2. Log in to an Azure dev subscription with your IDE or directly with `az login`
 3. Test name generation by running `aspire publish`
 4. Test remote name deployment with `aspire deploy`
 
