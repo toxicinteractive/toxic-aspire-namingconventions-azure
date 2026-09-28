@@ -1,6 +1,8 @@
 using Aspire.Hosting.Azure;
 using Azure.Core;
+using Azure.Provisioning.AppConfiguration;
 using Azure.Provisioning.AppContainers;
+using Azure.Provisioning.AppService;
 using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
 using Azure.Provisioning.OperationalInsights;
@@ -31,12 +33,15 @@ public static class DistributedApplicationBuilderExtensions
             builder.Services.AddSingleton<IEnvironmentNameResolver, DefaultEnvironmentNameResolver>();
 
             // default resource resolvers
+            builder.Services.AddSingleton<IResourceNameResolver<AppServicePlan>, DefaultResourceNameResolver<AppServicePlan>>();
+            builder.Services.AddSingleton<IResourceNameResolver<WebSite>, DefaultResourceNameResolver<WebSite>>();
             builder.Services.AddSingleton<IResourceNameResolver<ContainerApp>, DefaultResourceNameResolver<ContainerApp>>();
             builder.Services.AddSingleton<IResourceNameResolver<KeyVaultService>, DefaultResourceNameResolver<KeyVaultService>>();
             builder.Services.AddSingleton<IResourceNameResolver<ContainerRegistryService>, DefaultResourceNameResolver<ContainerRegistryService>>();
             builder.Services.AddSingleton<IResourceNameResolver<OperationalInsightsWorkspace>, DefaultResourceNameResolver<OperationalInsightsWorkspace>>();
             builder.Services.AddSingleton<IResourceNameResolver<SqlServer>, DefaultResourceNameResolver<SqlServer>>();
             builder.Services.AddSingleton<IResourceNameResolver<StorageAccount>, DefaultResourceNameResolver<StorageAccount>>();
+            builder.Services.AddSingleton<IResourceNameResolver<AppConfigurationStore>, DefaultResourceNameResolver<AppConfigurationStore>>();
 
             // specific resource resolver overrides
             builder.Services.AddSingleton<IResourceNameResolver<ContainerAppManagedEnvironment>, ContainerAppManagedEnvironmentNameResolver>();

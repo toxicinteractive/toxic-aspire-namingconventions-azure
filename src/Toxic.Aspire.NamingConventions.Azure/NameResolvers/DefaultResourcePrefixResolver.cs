@@ -1,4 +1,6 @@
+using Azure.Provisioning.AppConfiguration;
 using Azure.Provisioning.AppContainers;
+using Azure.Provisioning.AppService;
 using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
 using Azure.Provisioning.OperationalInsights;
@@ -25,6 +27,9 @@ public class DefaultResourcePrefixResolver : IResourcePrefixResolver
             global::Azure.Provisioning.Sql.SqlDatabase => ResourcePrefixes.SqlDatabase,
             OperationalInsightsWorkspace => ResourcePrefixes.LogAnalyticsWorkspace,
             UserAssignedIdentity => ResourcePrefixes.ManagedIdentity,
+            AppServicePlan => ResourcePrefixes.AppServicePlan,
+            WebSite => ResourcePrefixes.AppService,
+            AppConfigurationStore => ResourcePrefixes.AppConfigurationStore,
             _ => null
         };
     }
