@@ -84,9 +84,9 @@ Each resource type that should have their name generated must be registered to a
 ```csharp
 builder.Services.AddSingleton<IResourceNameResolver<SqlDatabase>, DefaultResourceNameResolver<SqlDatabase>>();
 ```
-There is a limited number of resource types that are registered by the framework by default. There is also a limited number of resource types that is handled by the default resource prefix resolver.
+There is a limited number of resource types that are registered by the framework by default. There is also a limited number of resource types that is handled by the default resource prefix resolver. More are being added to the default set but you can also register more in your own project freely. PR:s are of course welcome.
 
-See `DistributedApplicationBuilderExtensions` for all resource types that are enabled by default and `DefaultResourcePrefixResolver` for supported resource prefixes.
+See [DistributedApplicationBuilderExtensions](https://github.com/toxicinteractive/toxic-aspire-namingconventions-azure/blob/844ef4be1b87f93a575e182fa1844b98f67dfb91/src/Toxic.Aspire.NamingConventions.Azure/DistributedApplicationBuilderExtensions.cs#L33) for all resource types that are enabled by default and [DefaultResourcePrefixResolver](https://github.com/toxicinteractive/toxic-aspire-namingconventions-azure/blob/844ef4be1b87f93a575e182fa1844b98f67dfb91/src/Toxic.Aspire.NamingConventions.Azure/DistributedApplicationBuilderExtensions.cs#L33) for supported resource prefixes.
 
 ### Name collisions
 If you declare 2 or more resources without using `WithAzureWorkloadName` to identify them their generated names will be identical. E.g: 

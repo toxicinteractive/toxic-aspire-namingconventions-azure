@@ -1,6 +1,8 @@
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Azure.Core;
 using Azure.Provisioning;
+using Azure.Provisioning.AppService;
 using Azure.Provisioning.Primitives;
 using Microsoft.Extensions.DependencyInjection;
 using Toxic.Aspire.NamingConventions.Azure.NameResolvers;
@@ -147,10 +149,28 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
 
     private ResourceWorkloadNameAssociation? GetResourceWorkloadNameAssociation(ProvisionableResource resource)
     {
+        var resourceBicepNameValue = GetResourceNameProperty(resource)?.GetValue(resource)?.ToString();
+
         if (!string.IsNullOrWhiteSpace(resource.BicepIdentifier))
         {
             // find a registered "Azure workload name association" for this resource
-            return ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resource.BicepIdentifier);
+            var match = ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resource.BicepIdentifier);
+
+            if (match == null && !string.IsNullOrWhiteSpace(resourceBicepNameValue))
+            {
+                // in some cases, like app service WebSite, the bicep identifier is overwritten by "webapp" 
+                // so we lose the original resource name key
+                // in this case extract the original resource name from the Name property
+                // TODO: there really should be a better way of associating metadata with a resource and get it across to here
+                var resourceName = Regex.Match(resourceBicepNameValue, @"\${toLower\('(?<name>[^']+)'\)}", RegexOptions.IgnoreCase);
+                
+                if (resourceName.Success)
+                {
+                    match = ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName.Groups["name"].Value);
+                }
+            }
+
+            return match;
         }
 
         return null;
@@ -158,7 +178,20 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
 
     private IResourceNameResolver? GetResourceNameResolver(ProvisionableResource resource)
     {
-        var resolverType = typeof(IResourceNameResolver<>).MakeGenericType(resource.GetType());
+        var resourceType = resource.GetType();
+
+        // drill down to the first public base type, sometimes there's an internal aspire resource in the way
+        while (resourceType != null && !resourceType.IsPublic)
+        {
+            resourceType = resourceType.BaseType;
+        }
+
+        if (resourceType == null)
+        {
+            return null;
+        }
+
+        var resolverType = typeof(IResourceNameResolver<>).MakeGenericType(resourceType);
         var resolver = ServiceProvider.GetService(resolverType) as IResourceNameResolver;
 
         if (resolver == null)

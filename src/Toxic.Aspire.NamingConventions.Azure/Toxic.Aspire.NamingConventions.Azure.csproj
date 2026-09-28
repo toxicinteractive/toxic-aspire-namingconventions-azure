@@ -9,7 +9,7 @@
 
     <IsPackable>true</IsPackable>
     <PackageId>Toxic.Aspire.NamingConventions.Azure</PackageId>
-    <Version>13.0.3</Version>
+    <Version>13.0.4</Version>
     <Company>Toxic Interactive Solutions</Company>
     <PackageTags>Aspire;Azure</PackageTags>
     <Description>Contains a framework for automatically generating Aspire Azure resource names according to conventions.</Description>
@@ -27,7 +27,10 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     
     <PackageReference Include="Aspire.Hosting.AppHost" Version="13.5.4" />
+    
+    <PackageReference Include="Aspire.Hosting.Azure.AppConfiguration" Version="13.5.4" />
     <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="13.5.4" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppService" Version="13.5.4" />
     <PackageReference Include="Aspire.Hosting.Azure.Sql" Version="13.5.4" />
   </ItemGroup>
 </Project>
