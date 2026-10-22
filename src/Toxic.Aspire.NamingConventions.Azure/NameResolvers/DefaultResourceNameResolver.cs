@@ -53,6 +53,12 @@ public class DefaultResourceNameResolver<T> : IResourceNameResolver<T> where T :
         return pattern;
     }
 
+    public string? GetResourceNameValue(ProvisionableResource resource) =>
+        GetResourceNameValue((T)resource);
+
+    public virtual string? GetResourceNameValue(T resource) =>
+        resource.BicepIdentifier;
+
     protected virtual string ReplaceSegment(string pattern, string segment, string? value, string separator)
     {
         if (string.IsNullOrWhiteSpace(value))

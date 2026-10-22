@@ -33,8 +33,6 @@ public static class DistributedApplicationBuilderExtensions
             builder.Services.AddSingleton<IEnvironmentNameResolver, DefaultEnvironmentNameResolver>();
 
             // default resource resolvers
-            builder.Services.AddSingleton<IResourceNameResolver<AppServicePlan>, DefaultResourceNameResolver<AppServicePlan>>();
-            builder.Services.AddSingleton<IResourceNameResolver<WebSite>, DefaultResourceNameResolver<WebSite>>();
             builder.Services.AddSingleton<IResourceNameResolver<ContainerApp>, DefaultResourceNameResolver<ContainerApp>>();
             builder.Services.AddSingleton<IResourceNameResolver<KeyVaultService>, DefaultResourceNameResolver<KeyVaultService>>();
             builder.Services.AddSingleton<IResourceNameResolver<ContainerRegistryService>, DefaultResourceNameResolver<ContainerRegistryService>>();
@@ -46,6 +44,8 @@ public static class DistributedApplicationBuilderExtensions
             // specific resource resolver overrides
             builder.Services.AddSingleton<IResourceNameResolver<ContainerAppManagedEnvironment>, ContainerAppManagedEnvironmentNameResolver>();
             builder.Services.AddSingleton<IResourceNameResolver<SqlDatabase>, SqlDatabaseNameResolver>();
+            builder.Services.AddSingleton<IResourceNameResolver<AppServicePlan>, AppServicePlanNameResolver>();
+            builder.Services.AddSingleton<IResourceNameResolver<WebSite>, AppServiceAppNameResolver>();
 
             builder.Services.Configure<AzureProvisioningOptions>(options =>
             {

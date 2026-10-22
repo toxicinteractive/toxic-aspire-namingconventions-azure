@@ -83,7 +83,7 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
         }
 
         var nameResolver = GetResourceNameResolver(resource);
-        var workloadNameAssociation = GetResourceWorkloadNameAssociation(resource);
+        var workloadNameAssociation = GetResourceWorkloadNameAssociation(resource, nameResolver);
         var nameRequirements = resource.GetResourceNameRequirements();
 
         if (workloadNameAssociation != null &&
@@ -147,33 +147,18 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
         return string.Empty;
     }
 
-    private ResourceWorkloadNameAssociation? GetResourceWorkloadNameAssociation(ProvisionableResource resource)
+    private ResourceWorkloadNameAssociation? GetResourceWorkloadNameAssociation(
+        ProvisionableResource resource,
+        IResourceNameResolver? nameResolver)
     {
-        var resourceBicepNameValue = GetResourceNameProperty(resource)?.GetValue(resource)?.ToString();
+        var resourceName = resource.BicepIdentifier;
 
-        if (!string.IsNullOrWhiteSpace(resource.BicepIdentifier))
+        if (nameResolver != null)
         {
-            // find a registered "Azure workload name association" for this resource
-            var match = ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resource.BicepIdentifier);
-
-            if (match == null && !string.IsNullOrWhiteSpace(resourceBicepNameValue))
-            {
-                // in some cases, like app service WebSite, the bicep identifier is overwritten by "webapp" 
-                // so we lose the original resource name key
-                // in this case extract the original resource name from the Name property
-                // TODO: there really should be a better way of associating metadata with a resource and get it across to here
-                var resourceName = Regex.Match(resourceBicepNameValue, @"\${toLower\('(?<name>[^']+)'\)}", RegexOptions.IgnoreCase);
-                
-                if (resourceName.Success)
-                {
-                    match = ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName.Groups["name"].Value);
-                }
-            }
-
-            return match;
+            resourceName = nameResolver.GetResourceNameValue(resource);
         }
 
-        return null;
+        return ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName);
     }
 
     private IResourceNameResolver? GetResourceNameResolver(ProvisionableResource resource)

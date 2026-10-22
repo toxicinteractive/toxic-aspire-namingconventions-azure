@@ -10,6 +10,7 @@ public interface IResourceNameResolver
 {
     Type ResourceType { get; }
     string? ResolveName(ProvisionableResource resource, NameResolutionContext context);
+    string? GetResourceNameValue(ProvisionableResource resource);
 }
 
 /// <summary>
@@ -18,4 +19,5 @@ public interface IResourceNameResolver
 public interface IResourceNameResolver<T> : IResourceNameResolver where T : ProvisionableResource
 {
     string? ResolveName(T resource, NameResolutionContext context);
+    string? GetResourceNameValue(T resource);
 }
