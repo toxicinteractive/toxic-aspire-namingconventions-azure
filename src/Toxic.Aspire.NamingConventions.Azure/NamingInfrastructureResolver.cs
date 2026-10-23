@@ -158,7 +158,9 @@ internal class NamingInfrastructureResolver : InfrastructureResolver
             resourceName = nameResolver.GetResourceNameValue(resource);
         }
 
-        return ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName);
+        return !string.IsNullOrWhiteSpace(resourceName) ? 
+            ServiceProvider.GetKeyedService<ResourceWorkloadNameAssociation>(resourceName.Replace("-", "_")) :
+            null;
     }
 
     private IResourceNameResolver? GetResourceNameResolver(ProvisionableResource resource)
