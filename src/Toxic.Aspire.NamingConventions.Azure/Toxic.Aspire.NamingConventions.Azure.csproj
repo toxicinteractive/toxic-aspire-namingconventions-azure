@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <NoWarn>$(NoWarn);1573;1591</NoWarn>
+    <NoWarn>$(NoWarn);1573;1591;ASPIRE010</NoWarn>
 
     <IsPackable>true</IsPackable>
     <PackageId>Toxic.Aspire.NamingConventions.Azure</PackageId>
