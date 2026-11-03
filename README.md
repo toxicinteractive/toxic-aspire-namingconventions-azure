@@ -78,7 +78,25 @@ builder.Services.AddSingleton<IRegionNameResolver, MyCustomRegionNameResolver>()
 ```
 You can extend the `DefaultRegionNameResolver` and include more regions. 
 
+### Use the helper services
+The following registered services can be resolved and used independently:
+
+* DefaultEnvironmentNameResolver
+* DefaultResourcePrefixResolver
+* DefaultResourceNameResolver
+
 ## Considerations/limitations
+### Check the GitHub issues page for open issues
+
+### Race conditions 
+Sometimes Aspire generates code before the name resolution has had the chance to change the resource name. 
+This may result in bicep code that references an invalid resource name (since it's changed after the fact).
+
+An example of this is when adding an SQL database or a Service Bus queue with a custom name and another resource that references it, 
+Aspire still generates a deployment script using the original resource name and the deployment will break or the connection string will be invalid.
+
+https://github.com/toxicinteractive/toxic-aspire-namingconventions-azure/issues/4
+
 ### Supported resource types
 Each resource type that should have their name generated must be registered to a name resolver explicitly like this: 
 ```csharp
@@ -110,6 +128,7 @@ builder
 This is also true for automatically generated resources. Aspire will generate required resources automatically if there's a need to, for example a container registry and a managed identity when you create a container app environment. To avoid name collisions for automatically generated resources you could:
 
 * Manually declare the resources in your AppHost and hand them to Aspire when declaring the master resource, now you can identify your resources with `WithAzureWorkloadName`
-* Exclude the resource types completely from the name resolution with a custom name resolver that does nothing
+* Exclude the resource types from the name resolution by unregistering IResourceNameResolver<> for the type
+* Exclude the resource types from the name resolution with a custom name resolver that does nothing
 * Handle the resolution in some other way in a custom name resolver
 
