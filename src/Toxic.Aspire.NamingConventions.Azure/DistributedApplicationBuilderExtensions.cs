@@ -6,6 +6,7 @@ using Azure.Provisioning.AppService;
 using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
 using Azure.Provisioning.OperationalInsights;
+using Azure.Provisioning.RedisEnterprise;
 using Azure.Provisioning.Sql;
 using Azure.Provisioning.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,7 @@ public static class DistributedApplicationBuilderExtensions
             builder.Services.AddSingleton<IResourceNameResolver<SqlServer>, DefaultResourceNameResolver<SqlServer>>();
             builder.Services.AddSingleton<IResourceNameResolver<StorageAccount>, DefaultResourceNameResolver<StorageAccount>>();
             builder.Services.AddSingleton<IResourceNameResolver<AppConfigurationStore>, DefaultResourceNameResolver<AppConfigurationStore>>();
+            builder.Services.AddSingleton<IResourceNameResolver<RedisEnterpriseCluster>, DefaultResourceNameResolver<RedisEnterpriseCluster>>();
 
             // specific resource resolver overrides
             builder.Services.AddSingleton<IResourceNameResolver<ContainerAppManagedEnvironment>, ContainerAppManagedEnvironmentNameResolver>();

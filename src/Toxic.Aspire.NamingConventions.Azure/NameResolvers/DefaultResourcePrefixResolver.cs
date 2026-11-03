@@ -5,6 +5,7 @@ using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
 using Azure.Provisioning.OperationalInsights;
 using Azure.Provisioning.Primitives;
+using Azure.Provisioning.RedisEnterprise;
 using Azure.Provisioning.Roles;
 
 namespace Toxic.Aspire.NamingConventions.Azure.NameResolvers;
@@ -30,6 +31,7 @@ public class DefaultResourcePrefixResolver : IResourcePrefixResolver
             AppServicePlan => ResourcePrefixes.AppServicePlan,
             WebSite => ResourcePrefixes.AppService,
             AppConfigurationStore => ResourcePrefixes.AppConfigurationStore,
+            RedisEnterpriseCluster => ResourcePrefixes.Redis,
             _ => null
         };
     }
