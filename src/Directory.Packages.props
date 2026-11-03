@@ -19,6 +19,7 @@
     <PackageVersion Include="Aspire.Hosting.Azure.AppService" Version="13.6.4" />
     <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="13.6.4" />
     <PackageVersion Include="Aspire.Hosting.Azure.Redis" Version="13.6.4" />
+    <PackageVersion Include="Aspire.Hosting.Azure.ServiceBus" Version="13.6.4" />
     <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.6.4" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using Azure.Provisioning.OperationalInsights;
 using Azure.Provisioning.Primitives;
 using Azure.Provisioning.RedisEnterprise;
 using Azure.Provisioning.Roles;
+using Azure.Provisioning.ServiceBus;
 
 namespace Toxic.Aspire.NamingConventions.Azure.NameResolvers;
 
@@ -32,6 +33,8 @@ public class DefaultResourcePrefixResolver : IResourcePrefixResolver
             WebSite => ResourcePrefixes.AppService,
             AppConfigurationStore => ResourcePrefixes.AppConfigurationStore,
             RedisEnterpriseCluster => ResourcePrefixes.Redis,
+            ServiceBusNamespace => ResourcePrefixes.ServiceBusNamespace,
+            ServiceBusQueue => ResourcePrefixes.ServiceBusQueue,
             _ => null
         };
     }
