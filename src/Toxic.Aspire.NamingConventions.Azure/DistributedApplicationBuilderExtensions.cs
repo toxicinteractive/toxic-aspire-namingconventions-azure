@@ -5,6 +5,7 @@ using Azure.Provisioning.AppContainers;
 using Azure.Provisioning.AppService;
 using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
+using Azure.Provisioning.Network;
 using Azure.Provisioning.OperationalInsights;
 using Azure.Provisioning.RedisEnterprise;
 using Azure.Provisioning.ServiceBus;
@@ -44,7 +45,9 @@ public static class DistributedApplicationBuilderExtensions
             builder.Services.AddSingleton<IResourceNameResolver<AppConfigurationStore>, DefaultResourceNameResolver<AppConfigurationStore>>();
             builder.Services.AddSingleton<IResourceNameResolver<RedisEnterpriseCluster>, DefaultResourceNameResolver<RedisEnterpriseCluster>>();
             builder.Services.AddSingleton<IResourceNameResolver<ServiceBusNamespace>, DefaultResourceNameResolver<ServiceBusNamespace>>();
-            builder.Services.AddSingleton<IResourceNameResolver<ServiceBusQueue>, DefaultResourceNameResolver<ServiceBusQueue>>();
+            builder.Services.AddSingleton<IResourceNameResolver<VirtualNetwork>, DefaultResourceNameResolver<VirtualNetwork>>();
+            builder.Services.AddSingleton<IResourceNameResolver<NetworkSecurityPerimeter>, DefaultResourceNameResolver<NetworkSecurityPerimeter>>();
+            builder.Services.AddSingleton<IResourceNameResolver<NetworkSecurityGroup>, DefaultResourceNameResolver<NetworkSecurityGroup>>();
 
             // specific resource resolver overrides
             builder.Services.AddSingleton<IResourceNameResolver<ContainerAppManagedEnvironment>, ContainerAppManagedEnvironmentNameResolver>();

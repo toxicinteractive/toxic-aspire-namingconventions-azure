@@ -79,6 +79,8 @@ public static class ResourcePrefixes
     public const string MlWorkspace = "mlw";
     public const string MonitorActionGroup = "ag";
     public const string MySqlDatabase = "mysqldb";
+    public const string NetworkSecurityGroup = "nsg";
+    public const string NetworkSecurityPerimeter = "nsp";
     public const string NotificationHubs = "nft";
     public const string NotificationHubsNamespace = "nftns";
     public const string OpenAIService = "oai";
