@@ -3,6 +3,7 @@ using Azure.Provisioning.AppContainers;
 using Azure.Provisioning.AppService;
 using Azure.Provisioning.ContainerRegistry;
 using Azure.Provisioning.KeyVault;
+using Azure.Provisioning.Network;
 using Azure.Provisioning.OperationalInsights;
 using Azure.Provisioning.Primitives;
 using Azure.Provisioning.RedisEnterprise;
@@ -34,7 +35,9 @@ public class DefaultResourcePrefixResolver : IResourcePrefixResolver
             AppConfigurationStore => ResourcePrefixes.AppConfigurationStore,
             RedisEnterpriseCluster => ResourcePrefixes.Redis,
             ServiceBusNamespace => ResourcePrefixes.ServiceBusNamespace,
-            ServiceBusQueue => ResourcePrefixes.ServiceBusQueue,
+            VirtualNetwork => ResourcePrefixes.VirtualNetwork,
+            NetworkSecurityGroup => ResourcePrefixes.NetworkSecurityGroup,
+            NetworkSecurityPerimeter => ResourcePrefixes.NetworkSecurityPerimeter,
             _ => null
         };
     }
